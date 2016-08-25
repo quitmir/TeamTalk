@@ -2,12 +2,19 @@
 # author: luoning
 # date: 03/24/2015
 
-MARIADB_DEVEL=MariaDB-10.0.17-centos6-x86_64-devel
-MARIADB_DEVEL_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_DEVEL.rpm
-MARIADB_COMMON=MariaDB-10.0.17-centos6-x86_64-common
-MARIADB_COMMON_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_COMMON.rpm
-MARIADB_COMPAT=MariaDB-10.0.17-centos6-x86_64-compat
-MARIADB_COMPAT_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_COMPAT.rpm
+#原来的rpm下载地址失效
+#MARIADB_DEVEL=MariaDB-10.0.17-centos6-x86_64-devel
+#MARIADB_DEVEL_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_DEVEL.rpm
+#MARIADB_COMMON=MariaDB-10.0.17-centos6-x86_64-common
+#MARIADB_COMMON_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_COMMON.rpm
+#MARIADB_COMPAT=MariaDB-10.0.17-centos6-x86_64-compat
+#MARIADB_COMPAT_DOWNLOAD_PATH=http://sfo1.mirrors.digitalocean.com/mariadb/mariadb-10.0.17/yum/centos6-amd64/rpms/$MARIADB_COMPAT.rpm
+MARIADB_DEVEL=MariaDB-10.0.26-centos6-x86_64-devel
+MARIADB_DEVEL_DOWNLOAD_PATH=http://yum.mariadb.org/10.0/centos6-amd64/rpms/$MARIADB_DEVEL.rpm
+MARIADB_COMMON=MariaDB-10.0.26-centos6-x86_64-common
+MARIADB_COMMON_DOWNLOAD_PATH=http://yum.mariadb.org/10.0/centos6-amd64/rpms/$MARIADB_COMMON.rpm
+MARIADB_COMPAT=MariaDB-10.0.26-centos6-x86_64-compat
+MARIADB_COMPAT_DOWNLOAD_PATH=http://yum.mariadb.org/10.0/centos6-amd64/rpms/$MARIADB_COMPAT.rpm
 CUR_DIR=
 
 check_user() {
@@ -86,6 +93,12 @@ build_mariadb_devel(){
     CENTOS_VERSION=$(less /etc/redhat-release)
     #echo "$OS_VERSION, $OS_BIT bit..." 
     if [[ $CENTOS_VERSION =~ "7.0" ]]; then
+        yum -y install mariadb-devel
+    #如果是7.1
+    elif [[ $CENTOS_VERSION =~ "7.1" ]]; then
+        yum -y install mariadb-devel
+    #如果是7.2
+    elif [[ $CENTOS_VERSION =~ "7.2" ]]; then
         yum -y install mariadb-devel
     else
         download $MARIADB_DEVEL.rpm $MARIADB_DEVEL_DOWNLOAD_PATH
